@@ -11,7 +11,7 @@ Trabalho 1 sobre Busca em Grafos do curso de Inteligência Artificial.
 | A*(Manhattan) |                |       |                  |
 
 ### Integrantes
-- Anderson Souza
+- Anderson Souza de Oliveira - Turama A - Matrícula 233042
 - Ernesto Vaz de Oliveira - Turma A - Matrícula 302470
 - Ricco Soares
 
