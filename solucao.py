@@ -16,4 +16,17 @@ def moveEstado(estado: str, idxVazio: int, dir: int):
             proxEstado.append(n)
     return "".join(proxEstado)
 
-
+# Exercício 1
+def sucessor(estado: str):
+    sucessores = []
+    for idx,n in enumerate(estado):
+        if n == "_":
+            if idx > 0:
+                sucessores.append((ESQUERDA,moveEstado(estado,idx,ESQUERDA)))
+                if idx > 2:
+                    sucessores.append((ACIMA,moveEstado(estado,idx,ACIMA)))
+            if idx < 8:
+                sucessores.append((DIREITA,moveEstado(estado,idx,DIREITA)))
+                if idx < 6:
+                    sucessores.append((ABAIXO,moveEstado(estado,idx,ABAIXO)))
+    return sucessores
