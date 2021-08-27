@@ -16,6 +16,7 @@ def moveEstado(estado: str, idxVazio: int, dir: int):
             proxEstado.append(n)
     return "".join(proxEstado)
 
+
 # Exercício 1
 def sucessor(estado: str):
     sucessores = []
@@ -35,6 +36,13 @@ def sucessor(estado: str):
 # Exercício 2
 class Nodo:
     def __init__(self, pai: str , estado, acao: str, custo: int):
+        """
+        Inicializa o nodo com os atributos recebidos
+        :param estado:str, representacao do estado do 8-puzzle
+        :param pai:Nodo, referencia ao nodo pai, (None no caso do nó raiz)
+        :param acao:str, acao a partir do pai que leva a este nodo (None no caso do nó raiz)
+        :param custo:int, custo do caminho da raiz até este nó
+        """
         self.pai = pai
         self.estado = estado
         self.acao = acao
@@ -51,8 +59,62 @@ class Nodo:
 
 
 # Exercício 3
-def expande (no : Nodo):
-    return sucessor(no)
+def expande (nodo : Nodo):
+    """
+    Recebe um nodo (objeto da classe Nodo) e retorna um iterable de nodos.
+    Cada nodo do iterable é contém um estado sucessor do nó recebido.
+    :param nodo: objeto da classe Nodo
+    :return:
+    """
+    return sucessor(nodo)
+
+def bfs(estado):
+    """
+    Recebe um estado (string), executa a busca em LARGURA e
+    retorna uma lista de ações que leva do
+    estado recebido até o objetivo ("12345678_").
+    Caso não haja solução a partir do estado recebido, retorna None
+    :param estado: str
+    :return:
+    """
+    return None
+
+
+def dfs(estado):
+    """
+    Recebe um estado (string), executa a busca em PROFUNDIDADE e
+    retorna uma lista de ações que leva do
+    estado recebido até o objetivo ("12345678_").
+    Caso não haja solução a partir do estado recebido, retorna None
+    :param estado: str
+    :return:
+    """
+    return None
+
+
+def astar_hamming(estado):
+    """
+    Recebe um estado (string), executa a busca A* com h(n) = soma das distâncias de Hamming e
+    retorna uma lista de ações que leva do
+    estado recebido até o objetivo ("12345678_").
+    Caso não haja solução a partir do estado recebido, retorna None
+    :param estado: str
+    :return:
+    """
+    return None
+
+
+def astar_manhattan(estado):
+    """
+    Recebe um estado (string), executa a busca A* com h(n) = soma das distâncias de Manhattan e
+    retorna uma lista de ações que leva do
+    estado recebido até o objetivo ("12345678_").
+    Caso não haja solução a partir do estado recebido, retorna None
+    :param estado: str
+    :return:
+    """
+    return None
+
 
 #Areateste
 noUM = Nodo('Nodo 0', '2_3541687', '', 0)
