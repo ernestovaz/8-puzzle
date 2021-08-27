@@ -22,17 +22,13 @@ def sucessor(estado: str):
     for idx,n in enumerate(estado):
         if n == "_":
             if idx > 0:
-                #sucessores.append((ESQUERDA,moveEstado(estado,idx,ESQUERDA)))
-                sucessores.append(('ESQUERDA',moveEstado(estado,idx,ESQUERDA)))
+                sucessores.append(('esquerda',moveEstado(estado,idx,ESQUERDA)))
                 if idx > 2:
-                    #sucessores.append((ACIMA,moveEstado(estado,idx,ACIMA)))
-                    sucessores.append(('ACIMA',moveEstado(estado,idx,ACIMA)))
+                    sucessores.append(('acima',moveEstado(estado,idx,ACIMA)))
             if idx < 8:
-                #sucessores.append((DIREITA,moveEstado(estado,idx,DIREITA)))
-                sucessores.append(('DIREITA',moveEstado(estado,idx,DIREITA)))
+                sucessores.append(('direita',moveEstado(estado,idx,DIREITA)))
                 if idx < 6:
-                    #sucessores.append((ABAIXO,moveEstado(estado,idx,ABAIXO)))
-                    sucessores.append(('ABAIXO',moveEstado(estado,idx,ABAIXO)))
+                    sucessores.append(('abaixo',moveEstado(estado,idx,ABAIXO)))
     return sucessores
 
 
@@ -48,25 +44,10 @@ class Nodo:
         pass
 
     def sucessorNo(estado: str):
-        sucessores = []
-        for idx,n in enumerate(estado):
-            if n == "_":
-                if idx > 0:
-                    #sucessores.append((ESQUERDA,moveEstado(estado,idx,ESQUERDA)))
-                    sucessores.append(('ESQUERDA',moveEstado(estado,idx,ESQUERDA)))
-                    if idx > 2:
-                        #sucessores.append((ACIMA,moveEstado(estado,idx,ACIMA)))
-                        sucessores.append(('ACIMA',moveEstado(estado,idx,ACIMA)))
-                if idx < 8:
-                    #sucessores.append((DIREITA,moveEstado(estado,idx,DIREITA)))
-                    sucessores.append(('DIREITA',moveEstado(estado,idx,DIREITA)))
-                    if idx < 6:
-                        #sucessores.append((ABAIXO,moveEstado(estado,idx,ABAIXO)))
-                        sucessores.append(('ABAIXO',moveEstado(estado,idx,ABAIXO)))
-        return sucessores
+        return sucessor(self.estado)
 
-    def expandeNo (self) :
-        return sucessor(self)
+    def expandeNo () :
+        return sucessor(self.estado)
 
 
 # Exercício 3
