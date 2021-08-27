@@ -22,12 +22,14 @@ def sucessor(estado: str):
     sucessores = []
     for idx,n in enumerate(estado):
         if n == "_":
-            if idx > 0:
-                sucessores.append(('esquerda',moveEstado(estado,idx,ESQUERDA)))
+            if idx > 0:  
+                if idx != 3 and idx != 6: #se espaço vazio em pos. 3 ou 6, não pode se mover para esquerda
+                    sucessores.append(('esquerda',moveEstado(estado,idx,ESQUERDA)))
                 if idx > 2:
                     sucessores.append(('acima',moveEstado(estado,idx,ACIMA)))
             if idx < 8:
-                sucessores.append(('direita',moveEstado(estado,idx,DIREITA)))
+                if idx != 2 and idx != 5: #se espaço vazio em pos. 2 ou 5, não pode se mover para direita
+                    sucessores.append(('direita',moveEstado(estado,idx,DIREITA)))
                 if idx < 6:
                     sucessores.append(('abaixo',moveEstado(estado,idx,ABAIXO)))
     return sucessores
@@ -35,7 +37,7 @@ def sucessor(estado: str):
 
 # Exercício 2
 class Nodo:
-    def __init__(self, pai: str , estado, acao: str, custo: int):
+    def __init__(self, estado: str, pai, acao: str, custo: int):
         """
         Inicializa o nodo com os atributos recebidos
         :param estado:str, representacao do estado do 8-puzzle
@@ -43,8 +45,8 @@ class Nodo:
         :param acao:str, acao a partir do pai que leva a este nodo (None no caso do nó raiz)
         :param custo:int, custo do caminho da raiz até este nó
         """
-        self.pai = pai
         self.estado = estado
+        self.pai = pai
         self.acao = acao
         self.custo = custo
 
@@ -60,13 +62,14 @@ class Nodo:
 
 # Exercício 3
 def expande (nodo : Nodo):
-    """
-    Recebe um nodo (objeto da classe Nodo) e retorna um iterable de nodos.
-    Cada nodo do iterable é contém um estado sucessor do nó recebido.
-    :param nodo: objeto da classe Nodo
-    :return:
-    """
-    return sucessor(nodo)
+    sucessores = sucessor(nodo.estado) 
+    expandidos = []
+    for succ in sucessores:
+        expandidos.append(Nodo(succ[1], nodo, succ[0], nodo.custo+1))
+    return expandidos
+
+
+
 
 def bfs(estado):
     """
@@ -77,7 +80,7 @@ def bfs(estado):
     :param estado: str
     :return:
     """
-    return None
+    return ''
 
 
 def dfs(estado):
@@ -89,7 +92,7 @@ def dfs(estado):
     :param estado: str
     :return:
     """
-    return None
+    return ''
 
 
 def astar_hamming(estado):
@@ -101,7 +104,7 @@ def astar_hamming(estado):
     :param estado: str
     :return:
     """
-    return None
+    return ''
 
 
 def astar_manhattan(estado):
@@ -113,7 +116,7 @@ def astar_manhattan(estado):
     :param estado: str
     :return:
     """
-    return None
+    return ''
 
 
 #Areateste
