@@ -72,7 +72,7 @@ def expande (nodo : Nodo):
     return expandidos
 
 
-def devolveAcoes(nodo : Nodo):
+def devolveAcoes(nodo : Nodo): # recebe nodo objetivo e retorna as ações tomadas para chegar a ele, deve ser útil para todas buscas
     n = nodo
     acoes = []
     while n.pai is not None:
@@ -85,12 +85,12 @@ def devolveAcoes(nodo : Nodo):
 def bfs(estado):
     if estado == "":
         return []
-    X = set()
-    F = deque([Nodo(estado,None,"",0)])
+    X = set()                               # conjunto, diminuiu muito o tempo de execução 
+    F = deque([Nodo(estado,None,"",0)])     #aqui a estrutura deque será usada como fila (append= push, popleft= pop front)
     while len(F):
         v = F.popleft()
         if v.estado == OBJETIVO:
-            return devolveAcoes(v)
+            return devolveAcoes(v)          
         elif v.estado not in X: 
             X.add(v.estado)
             for nodo in expande(v): F.append(nodo)
