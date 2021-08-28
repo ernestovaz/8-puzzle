@@ -1,7 +1,10 @@
+from collections import deque
+
 ESQUERDA = -1
 DIREITA = 1
 ABAIXO = 3
 ACIMA = -3
+OBJETIVO = "12345678_"
 
 #função que move peça, dado estado inicial, índice do espaço vazio e direção
 def moveEstado(estado: str, idxVazio: int, dir: int):
@@ -69,19 +72,29 @@ def expande (nodo : Nodo):
     return expandidos
 
 
+def devolveAcoes(nodo : Nodo):
+    n = nodo
+    acoes = []
+    while n.pai is not None:
+        acoes.insert(0,n.acao)
+        n = n.pai
+    return acoes
 
 
+# Exercício 4
 def bfs(estado):
-    """
-    Recebe um estado (string), executa a busca em LARGURA e
-    retorna uma lista de ações que leva do
-    estado recebido até o objetivo ("12345678_").
-    Caso não haja solução a partir do estado recebido, retorna None
-    :param estado: str
-    :return:
-    """
-    return ''
-
+    if estado == "":
+        return []
+    X = set()
+    F = deque([Nodo(estado,None,"",0)])
+    while len(F):
+        v = F.popleft()
+        if v.estado == OBJETIVO:
+            return devolveAcoes(v)
+        elif v.estado not in X: 
+            X.add(v.estado)
+            for nodo in expande(v): F.append(nodo)
+    return None
 
 def dfs(estado):
     """
@@ -120,5 +133,18 @@ def astar_manhattan(estado):
 
 
 #Areateste
+
 noUM = Nodo('Nodo 0', '2_3541687', '', 0)
-print (sucessor(noUM.estado))
+
+#print (sucessor(noUM.estado))
+##print (bfs("12_463758"))
+
+def mostraPuzzle(estado):
+    print("""
+    -------
+    |"""+str(estado[0])+"|"+str(estado[1])+"|"+str(estado[2])+"""|
+    -------
+    |"""+str(estado[3])+"|"+str(estado[4])+"|"+str(estado[5])+"""|
+    -------
+    |"""+str(estado[6])+"|"+str(estado[7])+"|"+str(estado[8])+"""|
+    -------""")
