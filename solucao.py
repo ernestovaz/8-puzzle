@@ -97,15 +97,26 @@ def bfs(estado):
     return None
 
 def dfs(estado):
-    """
-    Recebe um estado (string), executa a busca em PROFUNDIDADE e
-    retorna uma lista de ações que leva do
-    estado recebido até o objetivo ("12345678_").
-    Caso não haja solução a partir do estado recebido, retorna None
-    :param estado: str
-    :return:
-    """
-    return ''
+	"""
+	Recebe um estado (string), executa a busca em PROFUNDIDADE e
+	retorna uma lista de ações que leva do
+	estado recebido até o objetivo ("12345678_").
+	Caso não haja solução a partir do estado recebido, retorna None
+	:param estado: str
+	:return:
+	"""
+	if estado == "":
+		return []
+	X = set()
+	F = deque([Nodo(estado, None, "", 0)])
+	while len(F):
+		v = F.pop() #retorna o elemento do topo da pilha (lado direito do deque)
+		if v.estado == OBJETIVO:
+			return devolveAcoes(v)
+		elif v.estado not in X:
+			X.add(v.estado)
+			for nodo in expande(v): F.append(nodo)
+	return None	
 
 
 def astar_hamming(estado):
