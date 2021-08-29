@@ -1,5 +1,5 @@
 from collections import deque
-from queue import PriorityQueue
+import heapq
 
 ESQUERDA = -1
 DIREITA = 1
@@ -133,20 +133,33 @@ def calc_hamming(estado):
 	return chars_diff
 
 def astar_hamming(estado):
-    """
-    Recebe um estado (string), executa a busca A* com h(n) = soma das distâncias de Hamming e
-    retorna uma lista de ações que leva do
-    estado recebido até o objetivo ("12345678_").
-    Caso não haja solução a partir do estado recebido, retorna None
-    :param estado: str
-    :return:
-    """
-    
-    g_value = 0 #implementar o calculo de distancia ate a origem
-    h_value = calc_hamming(estado) #valor da heuristica
-    f_value = g_value + h_value
-    
-    return ""
+	"""
+	Recebe um estado (string), executa a busca A* com h(n) = soma das distâncias de Hamming e
+	retorna uma lista de ações que leva do
+	estado recebido até o objetivo ("12345678_").
+	Caso não haja solução a partir do estado recebido, retorna None
+	:param estado: str
+	:return:
+	"""
+
+	if estado == "":
+		return []
+	X = set()
+	F = [] #inicializando a fila de prioridades
+	heapq.heappush(F, (0, Nodo(estado, None, "", 0)))
+	while len(F):
+		v = heapq.heappop(F)[1] #v recebe o Nodo do par (valor,  Nodo) do topo da lista de prioridades
+		if v.estado == OBJETIVO:
+			return devolveAcoes(v)
+		elif v.estado not in X:
+			X.add(v.estado)
+			for nodo in expande(v):
+				g_value = nodo.custo
+				h_value = calc_hamming(nodo.estado) #valor da heuristica
+				f_value = g_value + h_value #valor final do nodo na fila de prioridades
+				heapq.heappush(F, (f_value, nodo))
+
+	return None
 
 def calc_manhattan(estado):
 	"""
