@@ -118,6 +118,18 @@ def dfs(estado):
 			for nodo in expande(v): F.append(nodo)
 	return None	
 
+def calc_hamming(estado):
+	"""
+	Recebe um estado (string), retorna a distancia de Hamming correspondente a esse estado (inteiro), em relacao ao objetivo 
+	"""
+	assert len(estado) == len(OBJETIVO) #por hipotese a string de estado e string objetivo sao de mesmo tamanho
+	chars_diff = 0
+
+	for i in range(len(estado)):
+		if estado[i] != OBJETIVO[i]:
+			chars_diff += 1
+	
+	return chars_diff
 
 def astar_hamming(estado):
     """
@@ -128,7 +140,12 @@ def astar_hamming(estado):
     :param estado: str
     :return:
     """
-    return ''
+    
+    g_value = 0 #implementar o calculo de distancia ate a origem
+    h_value = calc_hamming(estado) #valor da heuristica
+    f_value = g_value + h_value
+    
+    return ""
 
 
 def astar_manhattan(estado):
