@@ -1,4 +1,5 @@
 from collections import deque
+from queue import PriorityQueue
 
 ESQUERDA = -1
 DIREITA = 1
@@ -147,6 +148,12 @@ def astar_hamming(estado):
     
     return ""
 
+def calc_manhattan(estado):
+	"""
+	Recebe um estado (string), retorna a distancia Manhattan correspondente a esse estado (inteiro), em relacao ao objetivo
+	"""
+	
+	raise NotImplementedError
 
 def astar_manhattan(estado):
     """
@@ -157,6 +164,11 @@ def astar_manhattan(estado):
     :param estado: str
     :return:
     """
+    
+    g_vlaue = 0
+    h_value = calc_manhattan(estado)
+    f_value = g_value + h_value
+    
     return ''
 
 
