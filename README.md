@@ -2,6 +2,8 @@
 Trabalho 1 sobre Busca em Grafos do curso de Inteligência Artificial.
 ### Bibliotecas necessárias
 ...
+collections
+...
 #### Exemplo de entrada "2_3541687"
 |               | Nós expandidos | Tempo | Custo da solução |
 |---------------|----------------|-------|------------------|
