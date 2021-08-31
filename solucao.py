@@ -115,9 +115,6 @@ def dfs(estado):
 	return None	
 
 def calc_hamming(estado):
-	"""
-	Recebe um estado (string), retorna a distancia de Hamming correspondente a esse estado (inteiro), em relacao ao objetivo 
-	"""
 	assert len(estado) == len(OBJETIVO) #por hipotese a string de estado e string objetivo sao de mesmo tamanho
 	chars_diff = 0
 
@@ -152,12 +149,14 @@ def calc_manhattan(estado):
     for pos,numChar in enumerate(estado):
         if numChar == "_":
             num = 9
-        else:
-            num = int(numChar) 
-        qPos,rPos = divmod(pos,3)
-        qNum,rNum = divmod(num-1,3)
-        manhattan += abs(qPos-qNum)+abs(rPos-rNum)  
-    return manhattan
+        else:                   #variaveis recebem Quociente e Resto da divisão inteira por 3, representando suas coordenadas no plano:
+            num = int(numChar)                                                                      # -------------
+        qPos,rPos = divmod(pos,3)                                                                   # |0,0|1,0|2,0|    
+        qNum,rNum = divmod(num-1,3)                                                                 # ------------- 
+        manhattan += abs(qPos-qNum)+abs(rPos-rNum)                                                  # |0,1|1,1|2,1|
+    return manhattan                                                                                # -------------
+                                                                                                    # |0,2|1,2|2,2|
+                                                                                                    # -------------
 	
 
 def astar_manhattan(estado):
