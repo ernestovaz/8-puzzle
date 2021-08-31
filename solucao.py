@@ -148,11 +148,15 @@ def astar_hamming(estado):
 	return None
 
 def calc_manhattan(estado):
-	"""
-	Recebe um estado (string), retorna a distancia Manhattan correspondente a esse estado (inteiro), em relacao ao objetivo
-	"""
+    manhattan = 0
+    for pos,numChar in enumerate(estado):
+        if numChar != "_":
+            num = int(numChar) 
+            qPos,rPos = divmod(pos,3)
+            qNum,rNum = divmod(num-1,3)
+            manhattan += abs(qPos-qNum)+abs(rPos-rNum)  
+    return manhattan
 	
-	raise NotImplementedError
 
 def astar_manhattan(estado):
 	if estado == "":
