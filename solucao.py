@@ -172,6 +172,7 @@ def calc_manhattan(estado):
 	raise NotImplementedError
 
 def astar_manhattan(estado):
+<<<<<<< HEAD
 	"""
 	Recebe um estado (string), executa a busca A* com h(n) = soma das distâncias de Manhattan e
 	retorna uma lista de ações que leva do
@@ -199,6 +200,22 @@ def astar_manhattan(estado):
 				heapq.heappush(F, (f_value, nodo))
 
 	return None
+=======
+    """
+    Recebe um estado (string), executa a busca A* com h(n) = soma das distâncias de Manhattan e
+    retorna uma lista de ações que leva do
+    estado recebido até o objetivo ("12345678_").
+    Caso não haja solução a partir do estado recebido, retorna None
+    :param estado: str
+    :return:
+    """
+    
+    g_vlaue = 0
+    h_value = calc_manhattan(estado)
+    f_value = g_value + h_value
+    
+    return ''
+>>>>>>> a5463be3070ab14b411ad1ba835acc1b141ac251
 
 
 #Areateste
