@@ -8,9 +8,9 @@ collections
 |               | Nós expandidos | Tempo | Custo da solução |
 |---------------|----------------|-------|------------------|
 | BFS           |     101758     |0.8768s|     23 ações     |
-| DFS           |                |       |                  |
-|  A*(Hamming)  |                |       |                  |
-| A*(Manhattan) |                |       |                  |
+| DFS           |     93795      |1,6661s|  88131 ações     |
+|  A*(Hamming)  |     9301       |0,1443s|     23 ações     |
+| A*(Manhattan) |     9301       |0,1445s|     23           |
 
 ### Integrantes
 - Anderson Souza de Oliveira - Turma A - Matrícula 233042
