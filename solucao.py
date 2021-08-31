@@ -1,4 +1,5 @@
 from collections import deque
+import heapq
 
 ESQUERDA = -1
 DIREITA = 1
@@ -40,27 +41,30 @@ def sucessor(estado: str):
 
 # Exercício 2
 class Nodo:
-    def __init__(self, estado: str, pai, acao: str, custo: int):
-        """
-        Inicializa o nodo com os atributos recebidos
-        :param estado:str, representacao do estado do 8-puzzle
-        :param pai:Nodo, referencia ao nodo pai, (None no caso do nó raiz)
-        :param acao:str, acao a partir do pai que leva a este nodo (None no caso do nó raiz)
-        :param custo:int, custo do caminho da raiz até este nó
-        """
-        self.estado = estado
-        self.pai = pai
-        self.acao = acao
-        self.custo = custo
+	def __init__(self, estado: str, pai, acao: str, custo: int):
+		"""
+		Inicializa o nodo com os atributos recebidos
+		:param estado:str, representacao do estado do 8-puzzle
+		:param pai:Nodo, referencia ao nodo pai, (None no caso do nó raiz)
+		:param acao:str, acao a partir do pai que leva a este nodo (None no caso do nó raiz)
+		:param custo:int, custo do caminho da raiz até este nó
+		"""
+		self.estado = estado
+		self.pai = pai
+		self.acao = acao
+		self.custo = custo
+		
+	def __lt__(self, next): #metodo de comparacao entre nodos para criterio de desempate na heapq
+		return self.estado < next.estado
+		
+	def insereNo (self, pai, novoNo):
+		pass
 
-    def insereNo (self, pai, novoNo):
-        pass
+	def sucessorNo(estado: str):
+		return sucessor(self.estado)
 
-    def sucessorNo(estado: str):
-        return sucessor(self.estado)
-
-    def expandeNo () :
-        return sucessor(self.estado)
+	def expandeNo () :
+		return sucessor(self.estado)
 
 
 # Exercício 3
@@ -97,39 +101,104 @@ def bfs(estado):
     return None
 
 def dfs(estado):
-    """
-    Recebe um estado (string), executa a busca em PROFUNDIDADE e
-    retorna uma lista de ações que leva do
-    estado recebido até o objetivo ("12345678_").
-    Caso não haja solução a partir do estado recebido, retorna None
-    :param estado: str
-    :return:
-    """
-    return ''
+	"""
+	Recebe um estado (string), executa a busca em PROFUNDIDADE e
+	retorna uma lista de ações que leva do
+	estado recebido até o objetivo ("12345678_").
+	Caso não haja solução a partir do estado recebido, retorna None
+	:param estado: str
+	:return:
+	"""
+	if estado == "":
+		return []
+	X = set()
+	F = deque([Nodo(estado, None, "", 0)])
+	while len(F):
+		v = F.pop() #retorna o elemento do topo da pilha (lado direito do deque)
+		if v.estado == OBJETIVO:
+			return devolveAcoes(v)
+		elif v.estado not in X:
+			X.add(v.estado)
+			for nodo in expande(v): F.append(nodo)
+	return None	
 
+def calc_hamming(estado):
+	"""
+	Recebe um estado (string), retorna a distancia de Hamming correspondente a esse estado (inteiro), em relacao ao objetivo 
+	"""
+	assert len(estado) == len(OBJETIVO) #por hipotese a string de estado e string objetivo sao de mesmo tamanho
+	chars_diff = 0
+
+	for i in range(len(estado)):
+		if estado[i] != OBJETIVO[i]:
+			chars_diff += 1
+	
+	return chars_diff
 
 def astar_hamming(estado):
-    """
-    Recebe um estado (string), executa a busca A* com h(n) = soma das distâncias de Hamming e
-    retorna uma lista de ações que leva do
-    estado recebido até o objetivo ("12345678_").
-    Caso não haja solução a partir do estado recebido, retorna None
-    :param estado: str
-    :return:
-    """
-    return ''
+	"""
+	Recebe um estado (string), executa a busca A* com h(n) = soma das distâncias de Hamming e
+	retorna uma lista de ações que leva do
+	estado recebido até o objetivo ("12345678_").
+	Caso não haja solução a partir do estado recebido, retorna None
+	:param estado: str
+	:return:
+	"""
 
+	if estado == "":
+		return []
+	X = set()
+	F = [] #inicializando a fila de prioridades
+	heapq.heappush(F, (0, Nodo(estado, None, "", 0)))
+	while len(F):
+		v = heapq.heappop(F)[1] #v recebe o Nodo do par (valor,  Nodo) do topo da lista de prioridades
+		if v.estado == OBJETIVO:
+			return devolveAcoes(v)
+		elif v.estado not in X:
+			X.add(v.estado)
+			for nodo in expande(v):
+				g_value = nodo.custo
+				h_value = calc_hamming(nodo.estado) #valor da heuristica
+				f_value = g_value + h_value #valor final do nodo na fila de prioridades
+				heapq.heappush(F, (f_value, nodo))
+
+	return None
+
+def calc_manhattan(estado):
+	"""
+	Recebe um estado (string), retorna a distancia Manhattan correspondente a esse estado (inteiro), em relacao ao objetivo
+	"""
+	
+	raise NotImplementedError
 
 def astar_manhattan(estado):
-    """
-    Recebe um estado (string), executa a busca A* com h(n) = soma das distâncias de Manhattan e
-    retorna uma lista de ações que leva do
-    estado recebido até o objetivo ("12345678_").
-    Caso não haja solução a partir do estado recebido, retorna None
-    :param estado: str
-    :return:
-    """
-    return ''
+	"""
+	Recebe um estado (string), executa a busca A* com h(n) = soma das distâncias de Manhattan e
+	retorna uma lista de ações que leva do
+	estado recebido até o objetivo ("12345678_").
+	Caso não haja solução a partir do estado recebido, retorna None
+	:param estado: str
+	:return:
+	"""
+	
+	if estado == "":
+		return []
+	X = set()
+	F = [] #inicializando a fila de prioridades
+	heapq.heappush(F, (0, Nodo(estado, None, "", 0)))
+	while len(F):
+		v = heapq.heappop(F)[1] #v recebe o Nodo do par (valor,  Nodo) do topo da lista de prioridades
+		if v.estado == OBJETIVO:
+			return devolveAcoes(v)
+		elif v.estado not in X:
+			X.add(v.estado)
+			for nodo in expande(v):
+				g_value = nodo.custo
+				h_value = calc_manhattan(nodo.estado) #valor da heuristica
+				f_value = g_value + h_value #valor final do nodo na fila de prioridades
+				heapq.heappush(F, (f_value, nodo))
+
+	return None
 
 
 #Areateste
