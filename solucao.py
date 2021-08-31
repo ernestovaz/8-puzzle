@@ -181,19 +181,3 @@ def astar_manhattan(estado):
     
 
 
-#Areateste
-
-noUM = Nodo('Nodo 0', '2_3541687', '', 0)
-
-#print (sucessor(noUM.estado))
-##print (bfs("12_463758"))
-
-def mostraPuzzle(estado):
-    print("""
-    -------
-    |"""+str(estado[0])+"|"+str(estado[1])+"|"+str(estado[2])+"""|
-    -------
-    |"""+str(estado[3])+"|"+str(estado[4])+"|"+str(estado[5])+"""|
-    -------
-    |"""+str(estado[6])+"|"+str(estado[7])+"|"+str(estado[8])+"""|
-    -------""")
