@@ -150,11 +150,13 @@ def astar_hamming(estado):
 def calc_manhattan(estado):
     manhattan = 0
     for pos,numChar in enumerate(estado):
-        if numChar != "_":
+        if numChar == "_":
+            num = 9
+        else:
             num = int(numChar) 
-            qPos,rPos = divmod(pos,3)
-            qNum,rNum = divmod(num-1,3)
-            manhattan += abs(qPos-qNum)+abs(rPos-rNum)  
+        qPos,rPos = divmod(pos,3)
+        qNum,rNum = divmod(num-1,3)
+        manhattan += abs(qPos-qNum)+abs(rPos-rNum)  
     return manhattan
 	
 
