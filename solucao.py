@@ -54,15 +54,6 @@ class Nodo:
         self.acao = acao
         self.custo = custo
 
-    def insereNo (self, pai, novoNo):
-        pass
-
-    def sucessorNo(estado: str):
-        return sucessor(self.estado)
-
-    def expandeNo () :
-        return sucessor(self.estado)
-
 
 # Exercício 3
 def expande (nodo : Nodo):
@@ -133,9 +124,11 @@ def calc_hamming(estado):
 	return chars_diff
 
 
+
 def astar_hamming(estado):
     """
-    Recebe um estado (string), executa a busca A* com h(n) = soma das distâncias de Hamming e
+    Recebe um estado (string), executa a busca A* com 
+    h(n) = soma das distâncias de Hamming e
     retorna uma lista de ações que leva do
     estado recebido até o objetivo ("12345678_").
     Caso não haja solução a partir do estado recebido, retorna None
@@ -147,6 +140,24 @@ def astar_hamming(estado):
     h_value = calc_hamming(estado) #valor da heuristica
 
     f_value = g_value + h_value
+
+    if estado == "":
+        return []
+
+    X = set()                               # conjunto, diminuiu muito o tempo de execução 
+    F = deque([Nodo(estado,None,"",0)])     #aqui a estrutura deque será usada como fila (append= push, popleft= pop front)
+    while len(F):
+        v = F.popleft()
+        if v.estado == OBJETIVO:
+            return devolveAcoes(v)          
+        elif v.estado not in X: 
+            X.add(v.estado)
+            expandido = expande(v).sort ##
+            for nodo in expandido: 
+                F.append(nodo) 
+    return None
+    
+
     
     #return ""
     pass
@@ -186,7 +197,7 @@ def astar_manhattan(estado):
     :return:
     """
     
-    g_vlaue = 0
+    g_value = 0
     h_value = calc_manhattan(estado)
     f_value = g_value + h_value
     
@@ -209,11 +220,12 @@ def mostraPuzzle(estado):
 ##print (bfs("12_463758"))
 basico = '1234567_8'
 #basico2 = '123456_78'
-#teste = '12_463758'
+teste = '12_463758'
 #mostraPuzzle(basico)
 #print (dfs(teste))
 #----------------------------------------------------------------
 #print ('BFS -> ', bfs(teste))
 #print ('DFS -> ', dfs(teste))
 
-print (calc_manhattan(basico))
+print (calc_hamming(teste))
+print (calc_manhattan(teste))
